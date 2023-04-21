@@ -27,7 +27,7 @@ If you're using Jambhalucid inside **[Jambhala](https://github.com/iburzynski/ja
 #### **Configure Blockfrost**
 Jambhalucid requires a Blockfrost API key (called a "project ID"), as it uses Blockfrost as a node provider to query the blockchain and submit transactions. This ID must be stored as a private environment variable so it can be imported by Next.js and used to connect to Blockfrost.
 
-The Jambhala `setup` wizard generates two files for storing environment variables: `.env` (located in the project root directory) and `.env.local` (located in the `/jambhalucid` directory). The `/jambhalucid/.env.local` file should not be modified manually: it simply references variables contained in the `.env` file, which is used elsewhere in Jambhala.
+The Jambhala environment automatically generates two files for storing environment variables: `.env` (located in the project root directory) and `.env.local` (located in the `/jambhalucid` directory). The `/jambhalucid/.env.local` file should not be modified manually: it simply references variables contained in the `.env` file, which is used elsewhere in Jambhala.
 
 Confirm that the `/jambhalucid/.env.local` exists and contains the following contents:
 
