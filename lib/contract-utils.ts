@@ -1,4 +1,5 @@
 import { Address, Datum, Lucid, Script, ScriptType, UTxO } from "lucid-cardano";
+import { Dispatch, SetStateAction } from "react";
 
 interface ScriptImport {
   type: "PlutusScriptV1" | "PlutusScriptV2";
@@ -34,3 +35,34 @@ export async function selectHighestValidUTxO(
   }
   return sortUTxOsDesc(validUTxOs)[0];
 }
+
+export interface ContractData {
+  error: Error | undefined;
+  isLoading: boolean;
+  setError: Dispatch<SetStateAction<Error | undefined>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  setSuccessMessage: Dispatch<SetStateAction<string | undefined>>;
+  successMessage: string | undefined;
+}
+
+export interface ContractActionData extends ContractData {
+  canTransact: boolean | undefined;
+  handleSubmit: () => void;
+  setDatum: Dispatch<SetStateAction<string>>;
+}
+
+export interface ContractLockData extends ContractActionData {
+  lovelace: bigint;
+  setLovelace: (value: string) => void;
+}
+
+export interface ContractClaimData extends ContractActionData {
+  setRedeemer: Dispatch<SetStateAction<string>>;
+}
+
+export const mkLoadingClickHandler =
+  (setIsLoading: Dispatch<SetStateAction<boolean>>, callback: () => void) =>
+  () => {
+    setIsLoading(true);
+    callback();
+  };

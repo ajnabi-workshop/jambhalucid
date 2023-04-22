@@ -1,18 +1,28 @@
-import { selectHighestValidUTxO } from "lib/script-utils";
-import { Address, Datum, Redeemer, Script } from "lucid-cardano";
 import { useCallback, useState } from "react";
+import { Address, Data, Script } from "lucid-cardano";
 import { useCardano } from "use-cardano";
+import { useContract } from "./use-contract";
+import {
+  ContractClaimData,
+  mkLoadingClickHandler,
+  selectHighestValidUTxO,
+} from "lib/contract-utils";
 
 export const useContractClaim = (
   script: Script,
-  scriptAddress: Address,
-  datum: Datum,
-  redeemer: Redeemer
-) => {
+  scriptAddress: Address
+): ContractClaimData => {
   const { isValid, lucid } = useCardano();
-  const [successMessage, setSuccessMessage] = useState<string>();
-  const [error, setError] = useState<Error | undefined>();
-
+  const {
+    error,
+    isLoading,
+    setError,
+    setIsLoading,
+    setSuccessMessage,
+    successMessage,
+  } = useContract();
+  const [datum, setDatum] = useState(Data.void());
+  const [redeemer, setRedeemer] = useState(Data.void());
   const claimUTxO = useCallback(async () => {
     if (!lucid) return;
 
@@ -38,12 +48,20 @@ export const useContractClaim = (
       setError(e as Error);
       console.error(e);
     }
-  }, [lucid, script, scriptAddress]);
+  }, [lucid, script, scriptAddress, datum, redeemer]);
+
+  const handleSubmit = mkLoadingClickHandler(setIsLoading, claimUTxO);
 
   return {
-    error,
-    successMessage,
-    claimUTxO,
     canTransact: isValid,
+    error,
+    handleSubmit,
+    isLoading,
+    setDatum,
+    setError,
+    setIsLoading,
+    setRedeemer,
+    setSuccessMessage,
+    successMessage,
   };
 };

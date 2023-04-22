@@ -14,7 +14,6 @@ export const Navigation = () => {
   const { asPath } = useRouter()
 
   const isHome = useMemo(() => asPath === "/", [asPath])
-  const isTransact = useMemo(() => asPath === "/transact", [asPath])
   const isSign = useMemo(() => asPath === "/sign", [asPath])
   const isMint = useMemo(() => asPath === "/mint", [asPath])
   const isGift = useMemo(() => asPath === "/contracts/gift", [asPath])
@@ -24,10 +23,6 @@ export const Navigation = () => {
       <div className="flex items-center">
         <Link href="/">
           <button className={twMerge(className, isHome && activeClassName)}>home</button>
-        </Link>
-
-        <Link href="/transact">
-          <button className={twMerge(className, isTransact && activeClassName)}>transact</button>
         </Link>
 
         <Link href="/sign">

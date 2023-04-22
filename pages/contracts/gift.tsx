@@ -1,80 +1,30 @@
-import { Address, Constr, Data, Datum, Script } from 'lucid-cardano'
-import { useEffect, useMemo, useState } from 'react'
-import { importScript } from 'lib/script-utils'
-import { Inter } from "@next/font/google"
-import { useCardano } from 'use-cardano'
-import { useContractLock } from 'hooks/use-contract-lock'
-import { useContractClaim } from 'hooks/use-contract-claim'
-import ContractLoadingButton from 'components/ContractLoadingButton'
+import { useCardano } from "use-cardano";
+import { useContractLock } from "hooks/use-contract-lock";
+import { useContractClaim } from "hooks/use-contract-claim";
+import ContractSubmitButton from "components/ContractSubmitButton";
+import { Contract, ContractActionProps } from "components/Contract";
+import { LovelaceSetter } from "components/LovelaceSetter";
+import { ContractError } from "components/ContractError";
+import { Inter } from "@next/font/google";
 
-const inter = Inter({ subsets: ["latin"] })
-
-interface ContractProps {
-  scriptName: string,
-}
-
-interface ContractLockProps {
-  script: Script,
-  scriptAddress: Address
-}
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Gift() {
-  console.log("gift component rendered")
-  return (<>
-    <Contract scriptName="gift" />
-  </>)
+  console.log("gift component rendered");
+  return (
+    <>
+      <Contract
+        scriptName="gift"
+        LockComponent={LockUTxO}
+        ClaimComponent={ClaimUTxO}
+      />
+    </>
+  );
 }
 
-function Contract({ scriptName }: ContractProps) {
-  const { lucid } = useCardano()
-  const [script, setScript] = useState<Script | undefined>()
-  const scriptAddress: Address | undefined = useMemo((() => {
-    return (lucid && script) ? lucid.utils.validatorToAddress(script) : undefined
-  }), [lucid, script])
-  useEffect(() => {
-    (async function () {
-      try {
-        setScript(await importScript(scriptName))
-      } catch (error) {
-        console.error(error);
-      }
-    })()
-  }, [])
-  if (script && scriptAddress) {
-    return (<>
-      <LockUTxO script={script} scriptAddress={scriptAddress} />
-      <ClaimUTxO script={script} scriptAddress={scriptAddress} />
-    </>)
-  }
-  return (<>
-    <p>Script '{scriptName}' not found!</p>
-  </>)
-
-}
-
-function LockUTxO({ script, scriptAddress }: ContractLockProps) {
-  const { isValid, hideToaster, showToaster } = useCardano()
-  const tx = useContractLock(script, scriptAddress, Data.void())
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleClick = () => {
-    setIsLoading(true)
-    tx.lockUTxO()
-  }
-
-  useEffect(() => {
-    if (tx.successMessage || tx.error) {
-      setIsLoading(false)
-    }
-  }, [tx.successMessage, tx.error])
-
-  useEffect(() => {
-    if (!tx.successMessage) {
-      hideToaster
-    } else {
-      showToaster("Success!", tx.successMessage)
-    }
-  }, [tx.successMessage, hideToaster, showToaster])
+function LockUTxO({ script, scriptAddress }: ContractActionProps) {
+  const contractData = useContractLock(script, scriptAddress);
+  const cantTransactMsg = "TODO: replace with correct message";
 
   return (
     <div className="text-center max-w-4xl m-auto text-gray-900 dark:text-gray-100">
@@ -90,74 +40,23 @@ function LockUTxO({ script, scriptAddress }: ContractLockProps) {
       </div>
 
       <div className="text-left my-8">
-        <div className="my-4">
-          <label className="flex flex-col w-40">
-            <span className="text-sm lowercase mb-1">Lovelace</span>
-
-            <input
-              className="rounded py-1 px-2 text-gray-800 border"
-              type="number"
-              min="0"
-              step="1000000"
-              name="amount"
-              value={Number(tx.lovelace)}
-              onChange={(e) => tx.setLovelace(e.target.value?.toString())}
-            />
-          </label>
-        </div>
+        <LovelaceSetter contractData={contractData} />
 
         <div className="my-4">
-          <ContractLoadingButton
-            disabled={!tx.canTransact}
-            loading={isLoading}
-            onClick={handleClick}
-            text="Send Gift" />
-
-
-          <div className="italic">
-            {isValid === false ? (
-              <p>
-                <small>connect a wallet to send a transaction</small>
-              </p>
-            ) : !tx.successMessage && !tx.error && !tx.canTransact ? (
-              <p>
-                <small>specify a lovelace amount to send a transaction</small>
-              </p>
-            ) : tx.error ? (
-              <p>
-                <small>{tx.error.message}</small>
-              </p>
-            ) : null}
-          </div>
+          <ContractSubmitButton contractData={contractData} text="Send Gift" />
+          <ContractError
+            cantTransactMsg={cantTransactMsg}
+            contractData={contractData}
+          />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function ClaimUTxO({ script, scriptAddress }: ContractLockProps) {
-  const { isValid, hideToaster, showToaster } = useCardano()
-  const tx = useContractClaim(script, scriptAddress, Data.void(), Data.void())
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleClick = () => {
-    setIsLoading(true)
-    tx.claimUTxO()
-  }
-
-  useEffect(() => {
-    if (tx.successMessage || tx.error) {
-      setIsLoading(false)
-    }
-  }, [tx.successMessage, tx.error])
-
-  useEffect(() => {
-    if (!tx.successMessage) {
-      hideToaster
-    } else {
-      showToaster("Success!", tx.successMessage)
-    }
-  }, [tx.successMessage, hideToaster, showToaster])
+function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
+  const contractData = useContractClaim(script, scriptAddress);
+  const cantTransactMsg = "TODO: replace with correct message";
 
   return (
     <div className="text-center max-w-4xl m-auto text-gray-900 dark:text-gray-100">
@@ -174,29 +73,13 @@ function ClaimUTxO({ script, scriptAddress }: ContractLockProps) {
 
       <div className="text-left my-8">
         <div className="my-4">
-          <ContractLoadingButton
-            disabled={!tx.canTransact}
-            loading={isLoading}
-            onClick={handleClick}
-            text="Claim Gift" />
-
-          <div className="italic">
-            {isValid === false ? (
-              <p>
-                <small>connect a wallet to send a transaction</small>
-              </p>
-            ) : !tx.successMessage && !tx.error && !tx.canTransact ? (
-              <p>
-                <small>specify a lovelace amount to send a transaction</small>
-              </p>
-            ) : tx.error ? (
-              <p>
-                <small>{tx.error.message}</small>
-              </p>
-            ) : null}
-          </div>
+          <ContractSubmitButton contractData={contractData} text="Claim Gift" />
+          <ContractError
+            cantTransactMsg={cantTransactMsg}
+            contractData={contractData}
+          />
         </div>
       </div>
     </div>
-  )
+  );
 }
