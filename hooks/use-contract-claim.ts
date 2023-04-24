@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Address, Data, Script } from "lucid-cardano";
+import { Address, Script } from "lucid-cardano";
 import { useCardano } from "use-cardano";
 import { useContract } from "./use-contract";
 import {
@@ -21,10 +21,10 @@ export const useContractClaim = (
     setSuccessMessage,
     successMessage,
   } = useContract();
-  const [datum, setDatum] = useState(Data.void());
-  const [redeemer, setRedeemer] = useState(Data.void());
+  const [datum, setDatum] = useState<string | undefined>();
+  const [redeemer, setRedeemer] = useState<string | undefined>();
   const claimUTxO = useCallback(async () => {
-    if (!lucid) return;
+    if (!lucid || !datum) return;
 
     try {
       const utxo = await selectHighestValidUTxO(lucid, scriptAddress, datum);
@@ -54,9 +54,11 @@ export const useContractClaim = (
 
   return {
     canTransact: isValid,
+    datum,
     error,
     handleSubmit,
     isLoading,
+    redeemer,
     setDatum,
     setError,
     setIsLoading,

@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Address, Data, Script } from "lucid-cardano";
+import { Address, Script } from "lucid-cardano";
 import { useCardano } from "use-cardano";
 import { useContract } from "./use-contract";
 import { ContractLockData, mkLoadingClickHandler } from "lib/contract-utils";
@@ -18,7 +18,7 @@ export const useContractLock = (
     successMessage,
   } = useContract();
   const [lovelace, setLovelace] = useState(0n);
-  const [datum, setDatum] = useState(Data.void());
+  const [datum, setDatum] = useState<string | undefined>();
 
   const lockUTxO = useCallback(async () => {
     if (!lucid || !lovelace) return;
@@ -61,6 +61,7 @@ export const useContractLock = (
 
   return {
     canTransact: isValid && lovelace > 0,
+    datum,
     error,
     handleSubmit: mkLoadingClickHandler(setIsLoading, lockUTxO),
     isLoading,

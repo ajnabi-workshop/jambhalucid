@@ -1,4 +1,4 @@
-import { ContractLockData } from "lib/tx-utils";
+import { ContractLockData } from "lib/contract-utils";
 
 type LovelaceSetterProps = {
   contractData: ContractLockData;

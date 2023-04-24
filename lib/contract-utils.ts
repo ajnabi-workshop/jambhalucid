@@ -47,8 +47,9 @@ export interface ContractData {
 
 export interface ContractActionData extends ContractData {
   canTransact: boolean | undefined;
+  datum: string | undefined;
   handleSubmit: () => void;
-  setDatum: Dispatch<SetStateAction<string>>;
+  setDatum: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export interface ContractLockData extends ContractActionData {
@@ -57,7 +58,8 @@ export interface ContractLockData extends ContractActionData {
 }
 
 export interface ContractClaimData extends ContractActionData {
-  setRedeemer: Dispatch<SetStateAction<string>>;
+  redeemer: string | undefined;
+  setRedeemer: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export const mkLoadingClickHandler =

@@ -1,4 +1,4 @@
-import { importScript } from "lib/script-utils";
+import { importScript } from "lib/contract-utils";
 import { Address, Script } from "lucid-cardano";
 import { useEffect, useMemo, useState } from "react";
 import { useCardano } from "use-cardano";

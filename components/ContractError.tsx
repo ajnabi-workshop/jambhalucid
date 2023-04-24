@@ -1,4 +1,4 @@
-import { ContractActionData } from "lib/tx-utils";
+import { ContractActionData } from "lib/contract-utils";
 import { useCardano } from "use-cardano";
 
 type ContractErrorProps = {
