@@ -64,7 +64,7 @@ export interface ContractClaimData extends ContractActionData {
 
 export const mkLoadingClickHandler =
   (setIsLoading: Dispatch<SetStateAction<boolean>>, callback: () => void) =>
-  () => {
-    setIsLoading(true);
-    callback();
-  };
+    () => {
+      setIsLoading(true);
+      callback();
+    };

@@ -1,7 +1,7 @@
 import { Inter } from "@next/font/google";
 import { Contract, ContractActionProps } from "components/Contract";
-import { ContractSubmit } from "components/ContractSubmit";
-import { LovelaceSetter } from "components/LovelaceSetter";
+import { ContractClaim } from "components/ContractClaim";
+import { ContractLock } from "components/ContractLock";
 import { useContractClaim } from "hooks/use-contract-claim";
 import { useContractLock } from "hooks/use-contract-lock";
 import { Data } from "lucid-cardano";
@@ -20,6 +20,8 @@ export default function CustomTyped() {
     <>
       <Contract
         scriptName="custom-typed"
+        title='Custom-Typed Redeemer ("42") Contract'
+        description="TODO: replace with description"
         LockComponent={LockUTxO}
         ClaimComponent={ClaimUTxO}
       />
@@ -33,36 +35,13 @@ function LockUTxO({ script, scriptAddress }: ContractActionProps) {
   useEffect(() => {
     contractData.setDatum(Data.void())
   })
-
-  return (
-    <div className="text-center max-w-4xl m-auto text-gray-900 dark:text-gray-100">
-      <h1
-        style={inter.style}
-        className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl"
-      >
-        Make Gift
-      </h1>
-
-      <div style={inter.style} className="my-4 text-center">
-        Lock a gift at the "custom typed redeemer" script address
-      </div>
-
-      <div className="text-left my-8">
-        <LovelaceSetter contractData={contractData} />
-        <ContractSubmit
-          buttonText="Send Gift"
-          contractData={contractData}
-          cantTransactMsg={cantTransactMsg}
-        />
-      </div>
-    </div>
-  );
+  return (<ContractLock contractData={contractData} cantTransactMsg={cantTransactMsg} />);
 }
 
 function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
   const contractData = useContractClaim(script, scriptAddress);
   const cantTransactMsg = "TODO: replace with correct message";
-  const currentGuess = contractData.redeemer? Data.from<Redeem>(
+  const currentGuess = contractData.redeemer ? Data.from<Redeem>(
     contractData.redeemer,
     RedeemSchema
   ).guess : 0n
@@ -77,40 +56,29 @@ function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
   useEffect(() => {
     contractData.setDatum(Data.void())
   })
-  return (
-    <div className="text-center max-w-4xl m-auto text-gray-900 dark:text-gray-100">
-      <h1
-        style={inter.style}
-        className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl"
-      >
-        Claim Gift
-      </h1>
+  const RedeemerInputs = (): JSX.Element => {
+    return (<div className="my-4">
+      <label className="flex flex-col w-40">
+        <span className="text-sm lowercase mb-1">Guess</span>
 
-      <div style={inter.style} className="my-4 text-center">
-        Claim a gift from the "custom typed redeemer" script address
-      </div>
-      <div className="my-4">
-        <label className="flex flex-col w-40">
-          <span className="text-sm lowercase mb-1">Guess</span>
-
-          <input
-            className="rounded py-1 px-2 text-gray-800 border"
-            type="number"
-            min="0"
-            step="1"
-            name="guess"
-            value={Number(currentGuess)}
-            onChange={setGuess}
-          />
-        </label>
-      </div>
-      <div className="text-left my-8">
-        <ContractSubmit
-          buttonText="Claim Gift"
-          contractData={contractData}
-          cantTransactMsg={cantTransactMsg}
+        <input
+          className="rounded py-1 px-2 text-gray-800 border"
+          type="number"
+          min="0"
+          step="1"
+          name="guess"
+          value={Number(currentGuess)}
+          onChange={setGuess}
         />
-      </div>
-    </div>
-  );
+      </label>
+    </div>)
+  }
+
+  return (
+    <ContractClaim
+      contractData={contractData}
+      cantTransactMsg={cantTransactMsg}
+      redeemerInputs={<RedeemerInputs />}
+    />
+  )
 }

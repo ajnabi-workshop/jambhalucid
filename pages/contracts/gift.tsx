@@ -1,20 +1,21 @@
 import { useContractLock } from "hooks/use-contract-lock";
 import { useContractClaim } from "hooks/use-contract-claim";
 import { Contract, ContractActionProps } from "components/Contract";
-import { LovelaceSetter } from "components/LovelaceSetter";
 import { Inter } from "@next/font/google";
-import { ContractSubmit } from "components/ContractSubmit";
 import { Data } from "lucid-cardano";
 import { useEffect } from "react";
+import { ContractClaim } from "components/ContractClaim";
+import { ContractLock } from "components/ContractLock";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Gift() {
-  console.log("gift component rendered");
   return (
     <>
       <Contract
         scriptName="gift"
+        title='Gift ("Always Succeeds") Contract'
+        description="The simplest possible contract, in which locked UTXOs can be claimed by anyone."
         LockComponent={LockUTxO}
         ClaimComponent={ClaimUTxO}
       />
@@ -28,29 +29,7 @@ function LockUTxO({ script, scriptAddress }: ContractActionProps) {
   useEffect(() => {
     contractData.setDatum(Data.void())
   })
-  return (
-    <div className="text-center max-w-4xl m-auto text-gray-900 dark:text-gray-100">
-      <h1
-        style={inter.style}
-        className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl"
-      >
-        Make Gift
-      </h1>
-
-      <div style={inter.style} className="my-4 text-center">
-        Lock a gift at the "always succeeds" script address
-      </div>
-
-      <div className="text-left my-8">
-        <LovelaceSetter contractData={contractData} />
-        <ContractSubmit
-          buttonText="Send Gift"
-          contractData={contractData}
-          cantTransactMsg={cantTransactMsg}
-        />
-      </div>
-    </div>
-  );
+  return (<ContractLock contractData={contractData} cantTransactMsg={cantTransactMsg} />);
 }
 
 function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
@@ -61,25 +40,8 @@ function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
     contractData.setRedeemer(Data.void())
   })
   return (
-    <div className="text-center max-w-4xl m-auto text-gray-900 dark:text-gray-100">
-      <h1
-        style={inter.style}
-        className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl"
-      >
-        Claim Gift
-      </h1>
-
-      <div style={inter.style} className="my-4 text-center">
-        Claim a gift from the "always succeeds" script address
-      </div>
-
-      <div className="text-left my-8">
-        <ContractSubmit
-          buttonText="Claim Gift"
-          contractData={contractData}
-          cantTransactMsg={cantTransactMsg}
-        />
-      </div>
-    </div>
-  );
+    <ContractClaim
+      contractData={contractData}
+      cantTransactMsg={cantTransactMsg}
+    />)
 }

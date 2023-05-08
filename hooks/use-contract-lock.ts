@@ -30,14 +30,14 @@ export const useContractLock = (
           scriptAddress,
           {
             inline: datum,
-            scriptRef,
+            // scriptRef,
           },
           {
             lovelace,
           }
         )
         .complete();
-
+      console.log(tx.txComplete.to_json())
       const signedTx = await tx.sign().complete();
       const txHash = await signedTx.submit();
 

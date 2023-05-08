@@ -14,28 +14,24 @@ export const Navigation = () => {
   const { asPath } = useRouter()
 
   const isHome = useMemo(() => asPath === "/", [asPath])
-  const isSign = useMemo(() => asPath === "/sign", [asPath])
-  const isMint = useMemo(() => asPath === "/mint", [asPath])
   const isGift = useMemo(() => asPath === "/contracts/gift", [asPath])
+  const isCustomTyped = useMemo(() => asPath === "/contracts/custom-typed", [asPath])
 
   return (
     <nav className="flex h-24 items-center justify-between w-full py-2">
       <div className="flex items-center">
         <Link href="/">
-          <button className={twMerge(className, isHome && activeClassName)}>home</button>
-        </Link>
-
-        <Link href="/sign">
-          <button className={twMerge(className, isSign && activeClassName)}>Sign</button>
-        </Link>
-
-        <Link href="/mint">
-          <button className={twMerge(className, isMint && activeClassName)}>Mint</button>
+          <button className={twMerge(className, isHome && activeClassName)}>Home</button>
         </Link>
 
         <Link href="/contracts/gift">
           <button className={twMerge(className, isGift && activeClassName)}>Gift</button>
         </Link>
+
+        <Link href="/contracts/custom-typed">
+          <button className={twMerge(className, isCustomTyped && activeClassName)}>Custom-Typed</button>
+        </Link>
+
       </div>
 
       <div>
