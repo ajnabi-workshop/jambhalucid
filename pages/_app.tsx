@@ -6,6 +6,7 @@ import "../styles/use-cardano-overrides.css"
 import type { AppProps } from "next/app"
 import { CardanoProvider, CardanoToaster, TestnetNetwork, UseCardanoOptions } from "use-cardano"
 import { DefaultLayout } from "layouts/DefaultLayout"
+import { StyledEngineProvider } from "@mui/material/styles"
 
 const tnetName = process.env.TESTNET_NAME
 const tnetNameCap = tnetName
@@ -23,12 +24,14 @@ const options: UseCardanoOptions = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <CardanoProvider options={options}>
-      <DefaultLayout>
-        <Component {...pageProps} />
-      </DefaultLayout>
+    <StyledEngineProvider injectFirst>
+      <CardanoProvider options={options}>
+        <DefaultLayout>
+          <Component {...pageProps} />
+        </DefaultLayout>
 
-      <CardanoToaster />
-    </CardanoProvider>
+        <CardanoToaster />
+      </CardanoProvider>
+    </StyledEngineProvider>
   )
 }

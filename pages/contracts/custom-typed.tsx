@@ -1,4 +1,3 @@
-import { Inter } from "@next/font/google";
 import { Contract, ContractActionProps } from "components/Contract";
 import { ContractClaim } from "components/ContractClaim";
 import { ContractLock } from "components/ContractLock";
@@ -13,14 +12,12 @@ const RedeemSchema = Data.Object({
 
 type Redeem = Data.Static<typeof RedeemSchema>;
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function CustomTyped() {
   return (
     <>
       <Contract
         scriptName="custom-typed"
-        title='Custom-Typed Redeemer ("42") Contract'
+        title='Custom-Typed Redeemer'
         description="TODO: replace with description"
         LockComponent={LockUTxO}
         ClaimComponent={ClaimUTxO}

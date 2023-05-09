@@ -2,6 +2,10 @@ import { importScript } from "lib/contract-utils";
 import { Address, Script } from "lucid-cardano";
 import { useEffect, useMemo, useState } from "react";
 import { useCardano } from "use-cardano";
+import layoutStyles from "../styles/Layout.module.css";
+import contractStyles from "../styles/Contract.module.css";
+import Border from "../public/tibetan_border.svg";
+import Image from 'next/image'
 
 export type ContractActionComponent = (props: ContractActionProps) => JSX.Element;
 
@@ -45,16 +49,16 @@ export function Contract({
   const ContractActions = () => {
     if (script && scriptAddress) {
       return (
-        <>
+        <div className={contractStyles['contract-actions']}>
           <LockComponent script={script} scriptAddress={scriptAddress} />
           <ClaimComponent script={script} scriptAddress={scriptAddress} />
-        </>
+        </div>
       );
     }
     else {
       return (
         <>
-          <p>Script '{scriptName}' not found!</p>
+          <p className={layoutStyles.description}>Script '{scriptName}' not found!</p>
         </>
       );
     }
@@ -62,9 +66,11 @@ export function Contract({
 
   return (
     <div className="text-center max-w-4xl m-auto text-gray-900 dark:text-gray-100">
-      <h1>{title}</h1>
-      <p>{description}</p>
-      {!lucid ? (<p>Connect to a supported Cardano wallet to interact with the contract.</p>) : (<ContractActions />)}
+      <h1 className={layoutStyles.title}>{title}</h1>
+      <p className={layoutStyles.description}>{description}</p>
+      <Image priority src={Border} alt="Tibetan border" className={layoutStyles.border} />
+      {!lucid ? (<p className={layoutStyles.description}>Connect to a supported Cardano wallet to interact with the contract.</p>) : (<ContractActions />)}
+      <Image priority src={Border} alt="Tibetan border" className={`${layoutStyles.border} ${layoutStyles.flipped}`} />
     </div>
   )
 }

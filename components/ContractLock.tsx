@@ -2,6 +2,7 @@ import { Inter } from "@next/font/google";
 import { ContractLockData } from "lib/contract-utils";
 import { ContractSubmit } from "./ContractSubmit";
 import { LovelaceSetter } from "./LovelaceSetter";
+import contractStyles from "../styles/Contract.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +14,7 @@ interface ContractLockProps {
 
 export const ContractLock = ({ contractData, cantTransactMsg, datumInputs }: ContractLockProps) => {
     return (
-        <div>
+        <div className={`${contractStyles["contract-action"]} ${contractStyles.lock}`}>
             <h2
                 style={inter.style}
                 className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl"

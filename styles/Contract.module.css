@@ -1,0 +1,20 @@
+.contract-actions {
+    display: flex;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.contract-action {
+    width: 33%;
+    padding: .5rem 1rem;
+    border-radius: .75rem;
+    opacity: 70%;
+}
+
+.lock {
+    background-color: #fbe230;
+}
+
+.claim {
+    background-color: #347c17;
+}

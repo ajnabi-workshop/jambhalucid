@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { useMemo } from "react"
 import { twMerge } from "tailwind-merge"
 import { CardanoWalletSelector } from "use-cardano"
+import layoutStyles from "../styles/Layout.module.css";
 
 const className =
   "h-10 text-white font-bold tracking-widest uppercase rounded mr-2 px-6 flex items-center dark:hover:text-white bg-blue-300 dark:bg-transparent dark:hover:bg-transparent dark:shadow-none shadow shadow-blue-100s hover:shadow-none hover:bg-blue-400 transition-all duration-300 hover:underline underline-offset-4"
@@ -18,9 +19,10 @@ export const Navigation = () => {
   const isCustomTyped = useMemo(() => asPath === "/contracts/custom-typed", [asPath])
 
   return (
-    <nav className="flex h-24 items-center justify-between w-full py-2">
+    <nav className="flex h-24 items-center justify-around w-full py-2">
       <div className="flex items-center">
-        <Link href="/">
+        <span className={layoutStyles.logo}>Jambhalucid</span>
+        {/* <Link href="/">
           <button className={twMerge(className, isHome && activeClassName)}>Home</button>
         </Link>
 
@@ -30,7 +32,7 @@ export const Navigation = () => {
 
         <Link href="/contracts/custom-typed">
           <button className={twMerge(className, isCustomTyped && activeClassName)}>Custom-Typed</button>
-        </Link>
+        </Link> */}
 
       </div>
 

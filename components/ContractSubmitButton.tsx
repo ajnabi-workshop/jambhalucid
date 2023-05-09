@@ -12,8 +12,8 @@ export default function ContractSubmitButton({
 }: LoadingButtonProps) {
   return (
     <LoadingButton
-      variant="outlined"
-      color="primary"
+      // variant="outlined"
+      // color="primary"
       disabled={!contractData.canTransact}
       loading={contractData.isLoading}
       onClick={contractData.handleSubmit}

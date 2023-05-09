@@ -2,6 +2,7 @@ import { Footer } from "components/Footer"
 import { Navigation } from "components/Navigation"
 import Head from "next/head"
 import { PropsWithChildren } from "react"
+import layoutStyles from "../styles/Layout.module.css";
 
 export const DefaultLayout = ({ children }: PropsWithChildren<{}>) => {
   return (
@@ -17,7 +18,7 @@ export const DefaultLayout = ({ children }: PropsWithChildren<{}>) => {
         <link rel="icon" href="/favicon.svg" />
       </Head>
 
-      <div className="container mx-auto px-4">
+      <div className={layoutStyles.container}>
         <Navigation />
 
         <main className="min-h-[calc(100vh-295px)] pt-12">{children}</main>

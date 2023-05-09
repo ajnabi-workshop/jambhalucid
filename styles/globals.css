@@ -3,5 +3,12 @@
 @tailwind utilities;
 
 html {
-    @apply dark:bg-gray-800;
+    /* @apply dark: bg-gray-800; */
+}
+
+body {
+    background-image: url('/jambhala_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }

@@ -14,7 +14,7 @@ export default function Gift() {
     <>
       <Contract
         scriptName="gift"
-        title='Gift ("Always Succeeds") Contract'
+        title='Gift Contract'
         description="The simplest possible contract, in which locked UTXOs can be claimed by anyone."
         LockComponent={LockUTxO}
         ClaimComponent={ClaimUTxO}
