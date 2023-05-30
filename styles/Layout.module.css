@@ -8,12 +8,24 @@
     src: url('/fonts/Ming.ttf') format('truetype');
 }
 
+.navbar {
+    display: flex;
+    height: 8rem;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ccc;
+}
+
 .logo {
     font-family: 'Goatskin Brush';
     font-size: 5rem;
     color: #ffffff;
     /* font-weight: 700; */
-    letter-spacing: .5rem;
+    letter-spacing: .75rem;
+    text-shadow: #fbe230 2px 0 15px;
 }
 
 .container {
@@ -34,6 +46,7 @@
     font-weight: 500;
     line-height: 1;
     text-transform: lowercase;
+    color: #fff;
 }
 
 .description {

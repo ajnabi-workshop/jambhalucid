@@ -5,10 +5,25 @@
 }
 
 .contract-action {
+    color: #000;
     width: 33%;
-    padding: .5rem 1rem;
+    padding: 1rem 2rem;
     border-radius: .75rem;
-    opacity: 70%;
+    /* opacity: 70%; */
+}
+
+.contract-submit {
+    background-color: #000;
+    width: 100%;
+}
+
+.contract-submit:hover {
+    background-color: purple;
+}
+
+.contract-submit:disabled {
+    color: #000;
+    background-color: grey;
 }
 
 .lock {
@@ -17,4 +32,9 @@
 
 .claim {
     background-color: #347c17;
+}
+
+.title {
+    font-family: 'Ming';
+    font-size: 2.5rem;
 }

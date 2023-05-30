@@ -29,7 +29,7 @@ export function Contract({
   LockComponent,
   ClaimComponent,
 }: ContractProps) {
-  const { lucid } = useCardano();
+  const { lucid, walletProvider } = useCardano();
   const [script, setScript] = useState<Script | undefined>();
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export function Contract({
     else {
       return (
         <>
-          <p className={layoutStyles.description}>Script '{scriptName}' not found!</p>
+          <p className={layoutStyles.description}>Loading '{scriptName}' script...</p>
         </>
       );
     }
@@ -69,7 +69,7 @@ export function Contract({
       <h1 className={layoutStyles.title}>{title}</h1>
       <p className={layoutStyles.description}>{description}</p>
       <Image priority src={Border} alt="Tibetan border" className={layoutStyles.border} />
-      {!lucid ? (<p className={layoutStyles.description}>Connect to a supported Cardano wallet to interact with the contract.</p>) : (<ContractActions />)}
+      {!walletProvider ? (<p className={layoutStyles.description}>Connect to a supported Cardano wallet to interact with the contract.</p>) : (<ContractActions />)}
       <Image priority src={Border} alt="Tibetan border" className={`${layoutStyles.border} ${layoutStyles.flipped}`} />
     </div>
   )

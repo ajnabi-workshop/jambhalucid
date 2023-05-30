@@ -1,5 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { ContractActionData } from "lib/contract-utils";
+import contractStyles from "../styles/Contract.module.css";
 
 interface LoadingButtonProps {
   contractData: ContractActionData;
@@ -17,6 +18,7 @@ export default function ContractSubmitButton({
       disabled={!contractData.canTransact}
       loading={contractData.isLoading}
       onClick={contractData.handleSubmit}
+      className={contractStyles["contract-submit"]}
     >
       <span>{text}</span>
     </LoadingButton>

@@ -1,5 +1,4 @@
-import LogoWhite from "assets/logo-white.png"
-import Logo from "assets/logo.png"
+import Logo from "assets/jamb_logo-500.png"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -7,7 +6,7 @@ import { useMemo } from "react"
 import { twMerge } from "tailwind-merge"
 
 const linkClassName = "mr-4 hover:underline md:mr-6 underline-offset-2"
-const companySiteUrl = "https://use-cardano.alangaming.com/"
+const companySiteUrl = "https://github.com/iburzynski/jambhala"
 
 export const Footer = () => {
   const { asPath } = useRouter()
@@ -28,7 +27,7 @@ export const Footer = () => {
 
         <span className="hidden dark:block">
           <a href={companySiteUrl} className="flex items-center mb-4 sm:mb-0">
-            <Image src={LogoWhite} width={200} height={22.2} alt="use-cardano Logo" />
+            <Image src={Logo} width={200} height={22.2} alt="use-cardano Logo" />
           </a>
         </span>
 
@@ -60,9 +59,9 @@ export const Footer = () => {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
-        © 2022{" "}
+        © 2023{" "}
         <a href={companySiteUrl} className="hover:underline">
-          use-cardano™
+          Jambhala
         </a>
         . All Rights Reserved.
       </span>

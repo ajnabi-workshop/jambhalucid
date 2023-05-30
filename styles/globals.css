@@ -3,12 +3,19 @@
 @tailwind utilities;
 
 html {
-    /* @apply dark: bg-gray-800; */
+    box-sizing: border-box;
 }
 
 body {
-    background-image: url('/jambhala_bg.jpg');
+    margin: 0;
+    padding: 0;
+    background-image: url('/jamb_bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }

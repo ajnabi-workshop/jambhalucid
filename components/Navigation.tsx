@@ -19,10 +19,10 @@ export const Navigation = () => {
   const isCustomTyped = useMemo(() => asPath === "/contracts/custom-typed", [asPath])
 
   return (
-    <nav className="flex h-24 items-center justify-around w-full py-2">
+    <nav className={layoutStyles.navbar}>
       <div className="flex items-center">
         <span className={layoutStyles.logo}>Jambhalucid</span>
-        {/* <Link href="/">
+        <Link href="/">
           <button className={twMerge(className, isHome && activeClassName)}>Home</button>
         </Link>
 
@@ -32,7 +32,7 @@ export const Navigation = () => {
 
         <Link href="/contracts/custom-typed">
           <button className={twMerge(className, isCustomTyped && activeClassName)}>Custom-Typed</button>
-        </Link> */}
+        </Link>
 
       </div>
 
