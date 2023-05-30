@@ -1,4 +1,3 @@
-import Logo from "assets/jamb_logo-500.png"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -21,13 +20,13 @@ export const Footer = () => {
       <div className="sm:flex sm:items-center sm:justify-between">
         <span className="block dark:hidden">
           <a href={companySiteUrl} className="flex items-center mb-4 sm:mb-0">
-            <Image src={Logo} width={200} height={22.2} alt="use-cardano Logo" />
+            <Image src={"/jamb_logo-500.png"} width={200} height={22.2} alt="Jambhala Logo" />
           </a>
         </span>
 
         <span className="hidden dark:block">
           <a href={companySiteUrl} className="flex items-center mb-4 sm:mb-0">
-            <Image src={Logo} width={200} height={22.2} alt="use-cardano Logo" />
+            <Image src={"/jamb_logo-500.png"} width={200} height={22.2} alt="Jambhala Logo" />
           </a>
         </span>
 

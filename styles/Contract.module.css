@@ -14,11 +14,13 @@
 
 .contract-submit {
     background-color: #000;
+    color: #fff;
+    font-weight: 700;
     width: 100%;
 }
 
 .contract-submit:hover {
-    background-color: purple;
+    background-color: rgb(31, 89, 206);
 }
 
 .contract-submit:disabled {
