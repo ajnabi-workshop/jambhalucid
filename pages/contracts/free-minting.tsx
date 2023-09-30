@@ -21,6 +21,7 @@ export default function FreeMinting() {
 function Minting({ script }: ContractActionProps) {
   const contractData = useMint(MintMode.Minting, script, TokenType.Fungible);
   const cantTransactMsg = "TODO: replace with correct message";
+
   useEffect(() => {
     contractData.setRedeemer(Data.void())
   }, [contractData])
@@ -42,6 +43,7 @@ function Minting({ script }: ContractActionProps) {
 function Burning({ script }: ContractActionProps) {
   const contractData = useMint(MintMode.Burning, script, TokenType.Fungible);
   const cantTransactMsg = "TODO: replace with correct message";
+
   useEffect(() => {
     contractData.setRedeemer(Data.void())
   }, [contractData])

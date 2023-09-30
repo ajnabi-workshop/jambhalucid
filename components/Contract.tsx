@@ -1,6 +1,6 @@
 import { importScript } from "lib/contract-utils";
-import { Address, Script } from "lucid-cardano";
-import { useEffect, useMemo, useState } from "react";
+import { Script } from "lucid-cardano";
+import { useEffect, useState } from "react";
 import { useCardano } from "use-cardano";
 import layoutStyles from "../styles/Layout.module.css";
 import contractStyles from "../styles/Contract.module.css";
@@ -26,7 +26,7 @@ export function Contract({
   description,
   actionComponents
 }: ContractProps) {
-  const { lucid, walletProvider } = useCardano();
+  const { walletProvider } = useCardano();
   const [script, setScript] = useState<Script | undefined>();
 
   useEffect(() => {
@@ -39,12 +39,8 @@ export function Contract({
     })();
   }, []);
 
-  const scriptAddress: Address | undefined = useMemo(() => {
-    return lucid && script ? lucid.utils.validatorToAddress(script) : undefined;
-  }, [lucid, script]);
-
   const ContractActions = () => {
-    if (script && scriptAddress) {
+    if (script) {
       return (
         <div className={contractStyles['contract-actions']}>
           {actionComponents.map((ActionComponent, index) => (

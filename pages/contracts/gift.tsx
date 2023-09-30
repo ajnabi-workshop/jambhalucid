@@ -22,19 +22,23 @@ export default function Gift() {
 function Give({ script }: ContractActionProps) {
   const contractData = useValidatorGive(script);
   const cantTransactMsg = "Enter a positive value in lovelace to send a gift";
+
   useEffect(() => {
     contractData.setDatum(Data.void())
   }, [contractData])
+
   return (<ValidatorGive contractData={contractData} cantTransactMsg={cantTransactMsg} />);
 }
 
 function Grab({ script }: ContractActionProps) {
   const contractData = useValidatorGrab(script);
   const cantTransactMsg = "";
+
   useEffect(() => {
     contractData.setDatum(Data.void())
     contractData.setRedeemer(Data.void())
   }, [contractData])
+
   return (
     <ValidatorGrab
       contractData={contractData}

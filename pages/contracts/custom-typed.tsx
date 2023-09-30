@@ -28,15 +28,22 @@ export default function CustomTyped() {
 function Give({ script }: ContractActionProps) {
   const contractData = useValidatorGive(script);
   const cantTransactMsg = "TODO: replace with correct message";
+
   useEffect(() => {
     contractData.setDatum(Data.void())
   }, [contractData])
+
   return (<ValidatorGive contractData={contractData} cantTransactMsg={cantTransactMsg} />);
 }
 
 function Grab({ script }: ContractActionProps) {
   const contractData = useValidatorGrab(script);
   const cantTransactMsg = "TODO: replace with correct message";
+
+  useEffect(() => {
+    contractData.setDatum(Data.void())
+  }, [contractData])
+
   const currentGuess = contractData.redeemer ? Data.from<Redeem>(
     contractData.redeemer,
     RedeemSchema
@@ -49,9 +56,6 @@ function Grab({ script }: ContractActionProps) {
       contractData.setRedeemer(redeem)
     }
   }
-  useEffect(() => {
-    contractData.setDatum(Data.void())
-  }, [contractData])
   const RedeemerInputs = (): JSX.Element => {
     return (<div className="my-4">
       <label className="flex flex-col w-40">
