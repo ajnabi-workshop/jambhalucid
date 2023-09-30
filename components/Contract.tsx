@@ -13,21 +13,18 @@ interface ContractProps {
   scriptName: string;
   title: string;
   description: string;
-  LockComponent: ContractActionComponent;
-  ClaimComponent: ContractActionComponent;
+  actionComponents: Array<ContractActionComponent>;
 }
 
 export interface ContractActionProps {
   script: Script;
-  scriptAddress: Address;
 }
 
 export function Contract({
   scriptName,
   title,
   description,
-  LockComponent,
-  ClaimComponent,
+  actionComponents
 }: ContractProps) {
   const { lucid, walletProvider } = useCardano();
   const [script, setScript] = useState<Script | undefined>();
@@ -50,8 +47,9 @@ export function Contract({
     if (script && scriptAddress) {
       return (
         <div className={contractStyles['contract-actions']}>
-          <LockComponent script={script} scriptAddress={scriptAddress} />
-          <ClaimComponent script={script} scriptAddress={scriptAddress} />
+          {actionComponents.map((ActionComponent, index) => (
+            <ActionComponent script={script} key={index} />
+          ))}
         </div>
       );
     }

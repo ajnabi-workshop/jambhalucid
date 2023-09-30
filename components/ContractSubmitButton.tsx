@@ -1,9 +1,9 @@
 import { LoadingButton } from "@mui/lab";
-import { ContractActionData } from "lib/contract-utils";
+import { ContractData } from "lib/contract-utils";
 import contractStyles from "../styles/Contract.module.css";
 
 interface LoadingButtonProps {
-  contractData: ContractActionData;
+  contractData: ContractData;
   text: string;
 }
 

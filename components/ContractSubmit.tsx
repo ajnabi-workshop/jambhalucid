@@ -1,11 +1,11 @@
-import { ContractActionData } from "lib/contract-utils";
+import { ContractData } from "lib/contract-utils";
 import { ContractError } from "./ContractError";
 import ContractSubmitButton from "./ContractSubmitButton";
 
 interface ContractSubmitProps {
   buttonText: string;
   cantTransactMsg: string;
-  contractData: ContractActionData;
+  contractData: ContractData;
 }
 
 export function ContractSubmit({

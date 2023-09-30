@@ -1,9 +1,9 @@
-import { ContractActionData } from "lib/contract-utils";
+import { ContractData } from "lib/contract-utils";
 import { useCardano } from "use-cardano";
 
 type ContractErrorProps = {
   cantTransactMsg: string;
-  contractData: ContractActionData;
+  contractData: ContractData;
 };
 
 export function ContractError({

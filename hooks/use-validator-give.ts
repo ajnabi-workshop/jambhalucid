@@ -1,13 +1,12 @@
 import { useCallback, useState } from "react";
-import { Address, Script } from "lucid-cardano";
+import { Script } from "lucid-cardano";
 import { useCardano } from "use-cardano";
 import { useContract } from "./use-contract";
-import { ContractLockData, mkLoadingClickHandler } from "lib/contract-utils";
+import { ValidatorGiveData, mkLoadingClickHandler } from "lib/contract-utils";
 
-export const useContractLock = (
-  scriptRef: Script,
-  scriptAddress: Address
-): ContractLockData => {
+export const useValidatorGive = (
+  script: Script
+): ValidatorGiveData => {
   const { isValid, lucid } = useCardano();
   const {
     error,
@@ -20,8 +19,9 @@ export const useContractLock = (
   const [lovelace, setLovelace] = useState(0n);
   const [datum, setDatum] = useState<string | undefined>();
 
-  const lockUTxO = useCallback(async () => {
+  const give = useCallback(async () => {
     if (!lucid || !lovelace) return;
+    const scriptAddress = lucid.utils.validatorToAddress(script);
 
     try {
       const tx = await lucid
@@ -37,7 +37,6 @@ export const useContractLock = (
           }
         )
         .complete();
-      console.log(tx.txComplete.to_json())
       const signedTx = await tx.sign().complete();
       const txHash = await signedTx.submit();
 
@@ -49,7 +48,7 @@ export const useContractLock = (
       setError(e as Error);
       console.error(e);
     }
-  }, [lucid, lovelace, scriptRef, scriptAddress, datum]);
+  }, [lucid, lovelace, script, datum]);
 
   const lovelaceSetter = useCallback((value: string) => {
     setError(undefined);
@@ -63,7 +62,7 @@ export const useContractLock = (
     canTransact: isValid && lovelace > 0,
     datum,
     error,
-    handleSubmit: mkLoadingClickHandler(setIsLoading, lockUTxO),
+    handleSubmit: mkLoadingClickHandler(setIsLoading, give),
     isLoading,
     lovelace,
     setDatum,

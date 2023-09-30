@@ -1,91 +1,91 @@
 @font-face {
-    font-family: 'Goatskin Brush';
-    src: url('/fonts/GoatskinBrush.ttf') format('truetype');
+  font-family: 'Goatskin Brush';
+  src: url('/fonts/GoatskinBrush.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'Ming';
-    src: url('/fonts/Ming.ttf') format('truetype');
+  font-family: 'Ming';
+  src: url('/fonts/Ming.ttf') format('truetype');
 }
 
 .navbar {
-    display: flex;
-    height: 8rem;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #ccc;
+  display: flex;
+  height: 8rem;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #ccc;
 }
 
 .logo {
-    font-family: 'Goatskin Brush';
-    font-size: 5rem;
-    color: #ffffff;
-    /* font-weight: 700; */
-    letter-spacing: .75rem;
-    text-shadow: #fbe230 2px 0 15px;
+  font-family: 'Goatskin Brush';
+  font-size: 5rem;
+  color: #ffffff;
+  /* font-weight: 700; */
+  letter-spacing: .75rem;
+  text-shadow: #fbe230 2px 0 15px;
 }
 
 .container {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    background-color: rgba(0, 0, 0, .8);
-    height: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: rgba(0, 0, 0, .95);
+  height: 100%;
 }
 
 .title {
-    margin-bottom: 1rem;
-    font-family: 'Ming';
-    font-size: 2rem;
-    line-height: 2.25rem;
-    font-weight: 500;
-    line-height: 1;
-    text-transform: lowercase;
-    color: #fff;
+  margin-bottom: 1rem;
+  font-family: 'Ming';
+  font-size: 2rem;
+  line-height: 2.25rem;
+  font-weight: 500;
+  line-height: 1;
+  text-transform: lowercase;
+  color: #fff;
 }
 
 .description {
-    margin-bottom: 1.5rem;
-    font-size: 1.125rem;
-    font-weight: 400;
-    color: #fff;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #fff;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .border {
-    filter: invert(1);
+  filter: invert(1);
 }
 
 .flipped {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 @media (min-width: 640px) {
-    .description {
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
+  .description {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 @media (min-width: 768px) {
-    .title {
-        font-size: 3rem;
-    }
+  .title {
+    font-size: 3rem;
+  }
 }
 
 @media (min-width: 1024px) {
-    .title {
-        font-size: 4rem;
-    }
+  .title {
+    font-size: 4rem;
+  }
 
-    .description {
-        padding-left: 6rem;
-        padding-right: 6rem;
-    }
+  .description {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
 }

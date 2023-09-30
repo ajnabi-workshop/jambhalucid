@@ -1,10 +1,10 @@
-import { useContractLock } from "hooks/use-contract-lock";
-import { useContractClaim } from "hooks/use-contract-claim";
+import { useValidatorGive } from "hooks/use-validator-give";
+import { useValidatorGrab } from "hooks/use-validator-grab";
 import { Contract, ContractActionProps } from "components/Contract";
 import { Data } from "lucid-cardano";
 import { useEffect } from "react";
-import { ContractClaim } from "components/ContractClaim";
-import { ContractLock } from "components/ContractLock";
+import { ValidatorGrab } from "components/ValidatorGrab";
+import { ValidatorGive } from "components/ValidatorGive";
 
 export default function Gift() {
   return (
@@ -12,32 +12,31 @@ export default function Gift() {
       <Contract
         scriptName="gift"
         title='Gift Contract'
-        description="The simplest possible contract, in which locked UTXOs can be claimed by anyone."
-        LockComponent={LockUTxO}
-        ClaimComponent={ClaimUTxO}
+        description="The simplest possible contract, in which locked UTxOs can be claimed by anyone."
+        actionComponents={[Give, Grab]}
       />
     </>
   );
 }
 
-function LockUTxO({ script, scriptAddress }: ContractActionProps) {
-  const contractData = useContractLock(script, scriptAddress);
+function Give({ script }: ContractActionProps) {
+  const contractData = useValidatorGive(script);
   const cantTransactMsg = "Enter a positive value in lovelace to send a gift";
   useEffect(() => {
     contractData.setDatum(Data.void())
-  })
-  return (<ContractLock contractData={contractData} cantTransactMsg={cantTransactMsg} />);
+  }, [contractData])
+  return (<ValidatorGive contractData={contractData} cantTransactMsg={cantTransactMsg} />);
 }
 
-function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
-  const contractData = useContractClaim(script, scriptAddress);
+function Grab({ script }: ContractActionProps) {
+  const contractData = useValidatorGrab(script);
   const cantTransactMsg = "";
   useEffect(() => {
     contractData.setDatum(Data.void())
     contractData.setRedeemer(Data.void())
-  })
+  }, [contractData])
   return (
-    <ContractClaim
+    <ValidatorGrab
       contractData={contractData}
       cantTransactMsg={cantTransactMsg}
     />)

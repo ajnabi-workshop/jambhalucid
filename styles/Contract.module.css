@@ -1,42 +1,50 @@
 .contract-actions {
-    display: flex;
-    margin: auto;
-    justify-content: space-evenly;
+  display: flex;
+  margin: auto;
+  justify-content: space-evenly;
 }
 
 .contract-action {
-    color: #000;
-    width: 33%;
-    padding: 1rem 2rem;
-    border-radius: .75rem;
-    /* opacity: 70%; */
+  color: #000;
+  width: 33%;
+  padding: 1rem 2rem;
+  border-radius: .75rem;
+  /* opacity: 70%; */
 }
 
 .contract-submit {
-    background-color: #000;
-    color: #fff;
-    font-weight: 700;
-    width: 100%;
+  background-color: #000;
+  color: #fff;
+  font-weight: 700;
+  width: 100%;
 }
 
 .contract-submit:hover {
-    background-color: rgb(31, 89, 206);
+  background-color: rgb(31, 89, 206);
 }
 
 .contract-submit:disabled {
-    color: #000;
-    background-color: grey;
+  color: #000;
+  background-color: grey;
 }
 
-.lock {
-    background-color: #fbe230;
+.give {
+  background-color: #fbe230;
 }
 
-.claim {
-    background-color: #347c17;
+.grab {
+  background-color: #347c17;
+}
+
+.mint {
+  background-color: #fbe230;
+}
+
+.burn {
+  background-color: red;
 }
 
 .title {
-    font-family: 'Ming';
-    font-size: 2.5rem;
+  font-family: 'Ming';
+  font-size: 2.5rem;
 }

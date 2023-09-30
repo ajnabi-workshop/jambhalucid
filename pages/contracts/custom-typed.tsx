@@ -1,8 +1,8 @@
 import { Contract, ContractActionProps } from "components/Contract";
-import { ContractClaim } from "components/ContractClaim";
-import { ContractLock } from "components/ContractLock";
-import { useContractClaim } from "hooks/use-contract-claim";
-import { useContractLock } from "hooks/use-contract-lock";
+import { ValidatorGrab } from "components/ValidatorGrab";
+import { ValidatorGive } from "components/ValidatorGive";
+import { useValidatorGrab } from "hooks/use-validator-grab";
+import { useValidatorGive } from "hooks/use-validator-give";
 import { Data } from "lucid-cardano";
 import { ChangeEvent, useEffect } from "react";
 
@@ -19,24 +19,23 @@ export default function CustomTyped() {
         scriptName="custom-typed"
         title='Custom-Typed Redeemer'
         description="TODO: replace with description"
-        LockComponent={LockUTxO}
-        ClaimComponent={ClaimUTxO}
+        actionComponents={[Give, Grab]}
       />
     </>
   );
 }
 
-function LockUTxO({ script, scriptAddress }: ContractActionProps) {
-  const contractData = useContractLock(script, scriptAddress);
+function Give({ script }: ContractActionProps) {
+  const contractData = useValidatorGive(script);
   const cantTransactMsg = "TODO: replace with correct message";
   useEffect(() => {
     contractData.setDatum(Data.void())
-  })
-  return (<ContractLock contractData={contractData} cantTransactMsg={cantTransactMsg} />);
+  }, [contractData])
+  return (<ValidatorGive contractData={contractData} cantTransactMsg={cantTransactMsg} />);
 }
 
-function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
-  const contractData = useContractClaim(script, scriptAddress);
+function Grab({ script }: ContractActionProps) {
+  const contractData = useValidatorGrab(script);
   const cantTransactMsg = "TODO: replace with correct message";
   const currentGuess = contractData.redeemer ? Data.from<Redeem>(
     contractData.redeemer,
@@ -52,7 +51,7 @@ function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
   }
   useEffect(() => {
     contractData.setDatum(Data.void())
-  })
+  }, [contractData])
   const RedeemerInputs = (): JSX.Element => {
     return (<div className="my-4">
       <label className="flex flex-col w-40">
@@ -72,7 +71,7 @@ function ClaimUTxO({ script, scriptAddress }: ContractActionProps) {
   }
 
   return (
-    <ContractClaim
+    <ValidatorGrab
       contractData={contractData}
       cantTransactMsg={cantTransactMsg}
       redeemerInputs={<RedeemerInputs />}
