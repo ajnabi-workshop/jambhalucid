@@ -30,7 +30,7 @@ export const useValidatorGive = (
           scriptAddress,
           {
             inline: datum,
-            // scriptRef,
+            // scriptRef: script,
           },
           {
             lovelace,
